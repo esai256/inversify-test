@@ -1,10 +1,13 @@
-export interface validationFunction<T> {
-  (value: T): boolean
-}
-export default interface IValidatedInputComponent<T> {
-  validationFunction: validationFunction<T>
+import IInputComponent from "./IInputComponent";
 
-  isValueValid?: boolean;
+export interface validationFunction<T> {
+  (value?: T): boolean
+}
+export default interface ValidatedInputComponent<T> {
+  validationFunction: validationFunction<T>;
+  value?: T;
   isValidationActive?: boolean;
   errorMessage?: string;
+
+  isValueValid: boolean;
 }

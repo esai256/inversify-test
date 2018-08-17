@@ -14,13 +14,22 @@ export default class EmailComponent
   @Prop({ default: '' }) errorMessage?: string;
   @Prop({ default: false }) isValidationActive?: boolean;
   @Prop({ default: '' }) label?: string;
+  @Prop({ default: '' }) labelPostfix?: string;
 
   get isValueValid(): boolean {
     return this.validationFunction(this.value || '');
   }
 
-  validationFunction(value: string): boolean {
-    return false;
+  get fullLabel() {
+    return `${this.label || ''}${this.labelPostfix && ` ${this.labelPostfix}`}`;
+  }
+
+  validationFunction(value?: string): boolean {
+    // validation of format with given empty value should succeed,
+    // as there should be a specific validation for checking if the value is empty
+    return value
+      ? /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value)
+      : true;
   }
 
   render() {

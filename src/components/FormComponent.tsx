@@ -6,8 +6,13 @@ import IFormComponent from './IFormComponent';
 import "reflect-metadata";
 
 @injectable()
-@Component
+@Component({} as any)
 export default class FormComponent extends Vue implements IFormComponent {
+  constructor(
+    options,
+  ) {
+    super(options);
+  }
   @Inject()
   private EmailComponent?: interfaces.Newable<IEmailComponent>;
 
